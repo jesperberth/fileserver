@@ -1,0 +1,16 @@
+---
+- hosts: localhost
+  name: Join Active Directory
+  vars:
+
+  tasks:
+    - name: Install packages for Realm
+      dnf:
+        name:
+          - realmd
+          - sssd
+          - oddjob
+          - adcli
+          - samba-common-tools
+          - krb5-workstation
+        state: latest
