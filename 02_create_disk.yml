@@ -17,10 +17,11 @@
        vg: vg.data
        pvs: /dev/sdb1
 
-    - name: create logical oracledb disk on vg.data
+    - name: create logical transport disk on vg.data
       lvol:
        vg: vg.data
        lv: lv.transport
+       size: 100%FREE
 
     - name: create filesystem xfs on lv.transport
       filesystem:
