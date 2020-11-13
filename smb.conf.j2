@@ -1,11 +1,26 @@
  [global]
     workgroup = "{{ activedirectorydomain }}"
-    realm = "{{ activedirectorydomain }}"
     server string = Samba Server Version %v
-    security = DOMAIN
+    hosts allow = 127., 10.0.
+
     log file = /var/log/samba/log.%m
     max log size = 50
+    # log level =3
+    security = ads
+    encrypt passwords = yes
+    passdb backend = tdbsam
+    realm = "{{ activedirectorydomain }}"
+
     load printers = No
-    idmap config * : backend = tdb
-    hosts allow = 127., 10.0.
     cups options = raw
+    printcap name = /dev/null
+
+#    idmap config * : backend = tdb
+
+[vHosts]
+  comment = Virtual Host repository
+  path = /mnt/transport
+  public = no
+  writable = yes
+  guest ok = no
+  valid users = @"sg-access-transport-rw@kunde.dk"
