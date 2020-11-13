@@ -1,0 +1,31 @@
+---
+- hosts: localhost
+  name: Configure Samba
+  vars:
+    ansible_python_interpreter: "/usr/bin/python3"
+
+  tasks:
+    - name: Install packages for Samba
+      dnf:
+        name:
+          - samba
+          - samba-client
+        state: latest
+
+    - name: Enable Smb Service
+      systemd:
+        name: smb
+        state: started
+        enabled: yes
+
+    - name: Enable Nmb Service
+      systemd:
+        name: Nmb
+        state: started
+        enabled: yes
+    
+    - name: Enable SMB in firewall
+      firewalld:
+        service: samba
+        permanent: true
+        state: enabled
