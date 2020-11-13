@@ -20,7 +20,7 @@
 
     - name: Enable Nmb Service
       systemd:
-        name: Nmb
+        name: nmb
         state: started
         enabled: yes
     
