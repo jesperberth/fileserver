@@ -1,0 +1,46 @@
+---
+- hosts: localhost
+  name: Create Transport Disk
+  vars:
+    ansible_python_interpreter: "/usr/bin/python3"
+
+  tasks:
+    - name: create partion /dev/sdb
+      parted:
+       device: /dev/sdb
+       number: 1
+       flags: [ lvm ]
+       state: present
+
+    - name: create volume group vg.data
+      lvg:
+       vg: vg.data
+       pvs: /dev/sdb1
+
+    - name: create logical oracledb disk on vg.data
+      lvol:
+       vg: vg.data
+       lv: lv.transport
+
+    - name: create filesystem xfs on lv.transport
+      filesystem:
+       fstype: xfs
+       dev: /dev/mapper/vg.data-lv.transport
+    
+    - name: create directory for lv.transport
+      file:
+       path: /mnt/transport
+       state: directory
+    
+    - name: add fstab entry
+      mount: 
+       name: /mnt/transport
+       src: /dev/mapper/vg.data-lv.transport
+       fstype: xfs 
+       opts: defaults
+       state: present
+
+    - name: mount disk
+      shell: mount -a
+      args:
+       warn: false
