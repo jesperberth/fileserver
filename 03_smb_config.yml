@@ -4,6 +4,9 @@
   vars:
     ansible_python_interpreter: "/usr/bin/python3"
 
+  vars_files:
+    - ../vars.yml
+
   tasks:
     - name: Install packages for Samba
       dnf:
@@ -40,8 +43,13 @@
         setype: samba_share_t
         state: present
     
-#    - name: Set SELinux for /mnt/transport semanage
-#      command: semanage fcontext -a -t samba_share_t "/mnt/transport(/.*)?"
+    - name: Configure Samba
+      template:
+        src: smb.conf.j2
+        dest: /etc/samba/smb.conf
+        owner: root
+        group: root
+        mode: '0644'
 
   handlers:
     - name: reload firewall

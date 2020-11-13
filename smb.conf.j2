@@ -1,0 +1,11 @@
+ [global]
+    workgroup = "{{ activedirectorydomain }}"
+    realm = "{{ activedirectorydomain }}"
+    server string = Samba Server Version %v
+    security = DOMAIN
+    log file = /var/log/samba/log.%m
+    max log size = 50
+    load printers = No
+    idmap config * : backend = tdb
+    hosts allow = 127., 10.0.
+    cups options = raw
