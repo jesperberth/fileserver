@@ -29,3 +29,16 @@
         service: samba
         permanent: true
         state: enabled
+      notify: reload firewall
+
+    - name: Set SELinux for /mnt/transport chcon
+      command: chcon -R -t samba_share_t /mnt/transport
+
+    - name: Set SELinux for /mnt/transport semanage
+      command: semanage fcontext -a -t samba_share_t "/mnt/transport(/.*)?"
+
+  handlers:
+    - name: reload firewall
+      systemd:
+        name: firewalld
+        state: reloaded
