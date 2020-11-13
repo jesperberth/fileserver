@@ -2,6 +2,7 @@
 - hosts: localhost
   name: Join Active Directory
   vars:
+    ansible_python_interpreter: "/usr/bin/python3"
 
   tasks:
     - name: Install packages for Realm
