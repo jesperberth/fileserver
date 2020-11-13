@@ -33,9 +33,15 @@
 
     - name: Set SELinux for /mnt/transport chcon
       command: chcon -R -t samba_share_t /mnt/transport
-
-    - name: Set SELinux for /mnt/transport semanage
-      command: semanage fcontext -a -t samba_share_t "/mnt/transport(/.*)?"
+    
+    - name: Allow Samba to modify files in /mnt/transport
+      community.general.sefcontext:
+        target: '/mnt/transport(/.*)?'
+        setype: samba_share_t
+        state: present
+    
+#    - name: Set SELinux for /mnt/transport semanage
+#      command: semanage fcontext -a -t samba_share_t "/mnt/transport(/.*)?"
 
   handlers:
     - name: reload firewall
