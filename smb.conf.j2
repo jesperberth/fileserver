@@ -1,5 +1,5 @@
    [global]
-    workgroup = "{{ activedirectorydomainshort }}"
+    workgroup = {{ activedirectorydomainshort }}
     server string = Samba Server Version %v
     hosts allow = 127., 10.0.
     socket options = TCP_NODELAY IPTOS_LOWDELAY SO_RCVBUF=131072 SO_SNDBUF=131072
@@ -10,7 +10,7 @@
     #log level =3
 
     security = ads
-    realm = "{{ activedirectorydomain }}"
+    realm = {{ activedirectorydomain }}
     idmap config * : backend = tdb
     idmap config * : range = 100000-299999
     idmap config KUNDE : backend = rid
