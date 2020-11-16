@@ -27,12 +27,20 @@
         state: started
         enabled: yes
     
+    - name: Enable Winbind Service
+      systemd:
+        name: winbind
+        state: started
+        enabled: yes      
+
     - name: Enable SMB in firewall
       firewalld:
         service: samba
         permanent: true
         state: enabled
       notify: reload firewall
+
+
 
     - name: Set SELinux for /mnt/transport chcon
       command: chcon -R -t samba_share_t /mnt/transport
@@ -50,9 +58,15 @@
         owner: root
         group: root
         mode: '0644'
+      notify: reload smb
 
   handlers:
     - name: reload firewall
       systemd:
         name: firewalld
+        state: reloaded
+
+    - name: reload smb
+      systemd:
+        name: smb
         state: reloaded

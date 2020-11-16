@@ -1,21 +1,29 @@
- [global]
-    workgroup = "{{ activedirectorydomain }}"
+   [global]
+    workgroup = "{{ activedirectorydomainshort }}"
     server string = Samba Server Version %v
     hosts allow = 127., 10.0.
+    socket options = TCP_NODELAY IPTOS_LOWDELAY SO_RCVBUF=131072 SO_SNDBUF=131072
+    use sendfile = true
 
     log file = /var/log/samba/log.%m
     max log size = 50
-    # log level =3
+    #log level =3
+
     security = ads
-    encrypt passwords = yes
-    passdb backend = tdbsam
     realm = "{{ activedirectorydomain }}"
+    idmap config * : backend = tdb
+    idmap config * : range = 100000-299999
+    idmap config KUNDE : backend = rid
+    idmap config KUNDE : range = 10000-99999
+    winbind separator = +
+    winbind enum users = yes
+    winbind enum groups = yes
+    winbind use default domain = yes
+    winbind refresh tickets = yes
 
     load printers = No
     cups options = raw
     printcap name = /dev/null
-
-#    idmap config * : backend = tdb
 
 [vHosts]
   comment = Virtual Host repository
@@ -23,4 +31,4 @@
   public = no
   writable = yes
   guest ok = no
-  valid users = @"sg-access-transport-rw@kunde.dk"
+  valid users = @"{{ accessgroup }}"
