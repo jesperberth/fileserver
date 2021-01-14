@@ -1,0 +1,11 @@
+---
+- hosts: localhost
+  name: Join Domain
+  vars:
+    ansible_python_interpreter: "/usr/bin/python3"
+
+  vars_files:
+    - ../vars2.yml
+
+  roles:
+    - jesperberth.el_domain_join
