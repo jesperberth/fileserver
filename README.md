@@ -2,7 +2,7 @@
 
 # Install
 
-dnf install python3-virtualenv git
+dnf install python3-virtualenv git -y
 
 virtualenv ansible
 
@@ -12,7 +12,9 @@ pip install ansible
 
 git clone https://github.com/jesperberth/fileserver.git
 
-create a vars.yml file ../vars.yml
+create a vars.yml file
+
+vi ~/vars.yml
 
 ```yaml
 ---
