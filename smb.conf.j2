@@ -25,8 +25,8 @@
     realm = {{ activedirectorydomain }}
     idmap config * : backend = tdb
     idmap config * : range = 100000-299999
-    idmap config {{ activedirectorydomainCAPshort }} : backend = rid
-    idmap config {{ activedirectorydomainCAPshort }} : range = 10000-99999
+    idmap config {{ activedirectorydomainshort|upper }} : backend = rid
+    idmap config {{ activedirectorydomainshort|upper }} : range = 10000-99999
     winbind separator = +
     winbind enum users = yes
     winbind enum groups = yes

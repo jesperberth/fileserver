@@ -10,7 +10,7 @@ includedir /etc/krb5.conf.d/
 [libdefaults]
     ticket_lifetime = 24h
     forwardable = true
-    default_realm = {{ activedirectorydomainCAP }}
+    default_realm = {{ activedirectorydomain|upper }}
 
 [appdefaults]
     pam = {
@@ -28,5 +28,5 @@ includedir /etc/krb5.conf.d/
  }
 
 [domain_realm]
- .{{ activedirectorydomain }} = {{ activedirectorydomainCAP }}
- {{ activedirectorydomain }} = {{ activedirectorydomainCAP }}
+ .{{ activedirectorydomain }} = {{ activedirectorydomain|upper }}
+ {{ activedirectorydomain }} = {{ activedirectorydomain|upper }}

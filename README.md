@@ -20,8 +20,6 @@ vi ~/vars.yml
 ---
 activedirectorydomain: "domain.local"
 activedirectorydomainshort: "domain"
-activedirectorydomainCAP: "DOMAIN.LOCAL"
-activedirectorydomainCAPshort: "DOMAIN"
 domaincontroller: "dc01.domain.local"
 ipallow: "192.168.130."
 device: "/dev/sdb"
