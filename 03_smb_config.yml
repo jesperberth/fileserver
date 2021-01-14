@@ -13,6 +13,8 @@
         name:
           - samba
           - samba-client
+          - samba-winbind
+          - samba-winbind-clients
         state: latest
 
     - name: Enable SMB in firewall
