@@ -1,6 +1,6 @@
 ---
 - hosts: localhost
-  name: Join Domain
+  name: Install and configure realm and Samba
   vars:
     ansible_python_interpreter: "/usr/bin/python3"
 
@@ -9,3 +9,4 @@
 
   roles:
     - jesperberth.el_domain_join
+    - jesperberth.el_samba_realm
