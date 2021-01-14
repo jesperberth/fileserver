@@ -31,12 +31,14 @@ accessgroup: "sg-access-share-rw"
 
 ansible-playbook 01_config_realm.yml
 
-realm join "domain"
-
-realm list
-
 ansible-playbook 02_create_disk.yml
 
 ansible-playbook 03_smb_config.yml
 
+realm join "domain"
+
+realm list
+
 net ads join -U administrator
+
+ansible-playbook 04_smb_config.yml

@@ -1,0 +1,30 @@
+---
+- hosts: localhost
+  name: Configure Samba
+  vars:
+    ansible_python_interpreter: "/usr/bin/python3"
+
+  vars_files:
+    - ../vars.yml
+
+  tasks:
+   - name: Set acl on share
+    ansible.builtin.file:
+       path: "{{ sharepath }}"
+       owner: administrator
+       group: "{{ accessgroup }}"
+       mode: '0770'
+
+    - name: Configure sssd
+      template:
+        src: sssd.conf.j2
+        dest: /etc/sssd/sssd.conf
+        owner: root
+        group: root
+        mode: '0600'
+
+    - name: Enable Winbind Service
+      systemd:
+        name: winbind
+        state: started
+        enabled: yes

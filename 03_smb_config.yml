@@ -50,14 +50,6 @@
         group: root
         mode: '0644'
 
-    - name: Configure sssd
-      template:
-        src: sssd.conf.j2
-        dest: /etc/sssd/sssd.conf
-        owner: root
-        group: root
-        mode: '0600'
-
     - name: Enable Smb Service
       systemd:
         name: smb
@@ -67,12 +59,6 @@
     - name: Enable Nmb Service
       systemd:
         name: nmb
-        state: started
-        enabled: yes
-
-    - name: Enable Winbind Service
-      systemd:
-        name: winbind
         state: started
         enabled: yes
 
