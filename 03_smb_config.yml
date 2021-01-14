@@ -15,24 +15,6 @@
           - samba-client
         state: latest
 
-    - name: Enable Smb Service
-      systemd:
-        name: smb
-        state: started
-        enabled: yes
-
-    - name: Enable Nmb Service
-      systemd:
-        name: nmb
-        state: started
-        enabled: yes
-
-    - name: Enable Winbind Service
-      systemd:
-        name: winbind
-        state: started
-        enabled: yes
-
     - name: Enable SMB in firewall
       firewalld:
         service: samba
@@ -40,12 +22,12 @@
         state: enabled
       notify: reload firewall
 
-    - name: Set SELinux for /mnt/transport chcon
-      command: chcon -R -t samba_share_t /mnt/transport
+    - name: Set SELinux for share chcon
+      command: chcon -R -t samba_share_t "{{ sharepath }}"
 
-    - name: Allow Samba to modify files in /mnt/transport
+    - name: Allow Samba to modify files in share
       community.general.sefcontext:
-        target: '/mnt/transport(/.*)?'
+        target: '{{ sharepath }}(/.*)?'
         setype: samba_share_t
         state: present
 
@@ -73,6 +55,24 @@
         owner: root
         group: root
         mode: '0600'
+
+    - name: Enable Smb Service
+      systemd:
+        name: smb
+        state: started
+        enabled: yes
+
+    - name: Enable Nmb Service
+      systemd:
+        name: nmb
+        state: started
+        enabled: yes
+
+    - name: Enable Winbind Service
+      systemd:
+        name: winbind
+        state: started
+        enabled: yes
 
   handlers:
     - name: reload firewall
