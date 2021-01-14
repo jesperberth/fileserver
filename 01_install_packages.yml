@@ -1,12 +1,12 @@
 ---
 - hosts: localhost
-  name: Install Software for realm
+  name: Install Software for realm and Samba
   vars:
     ansible_python_interpreter: "/usr/bin/python3"
 
   tasks:
     - name: Install packages for Realm
-      dnf:
+      package:
         name:
           - realmd
           - sssd
@@ -15,4 +15,8 @@
           - adcli
           - samba-common-tools
           - krb5-workstation
+          - samba
+          - samba-client
+          - samba-winbind
+          - samba-winbind-clients
         state: latest

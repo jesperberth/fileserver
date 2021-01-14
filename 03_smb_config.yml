@@ -8,15 +8,6 @@
     - ../vars.yml
 
   tasks:
-    - name: Install packages for Samba
-      dnf:
-        name:
-          - samba
-          - samba-client
-          - samba-winbind
-          - samba-winbind-clients
-        state: latest
-
     - name: Enable SMB in firewall
       firewalld:
         service: samba

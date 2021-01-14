@@ -29,7 +29,7 @@ accessgroup: "sg-access-share-rw"
 ```
 ## Run
 
-ansible-playbook 01_config_realm.yml
+ansible-playbook 01_install_packages.yml
 
 ansible-playbook 02_create_disk.yml
 

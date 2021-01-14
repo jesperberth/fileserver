@@ -22,9 +22,16 @@
         owner: root
         group: root
         mode: '0600'
+      notify: reload sssd
 
     - name: Enable Winbind Service
       systemd:
         name: winbind
         state: started
         enabled: yes
+
+  handlers:
+    - name: reload sssd
+      systemd:
+        name: sssd
+        state: reloaded
