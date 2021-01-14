@@ -8,12 +8,12 @@
     - ../vars.yml
 
   tasks:
-   - name: Set acl on share
-     ansible.builtin.file:
-       path: "{{ sharepath }}"
-       owner: administrator
-       group: "{{ accessgroup }}"
-       mode: '0770'
+    - name: Set acl on share
+      ansible.builtin.file:
+        path: "{{ sharepath }}"
+        owner: administrator
+        group: "{{ accessgroup }}"
+        mode: '0770'
 
     - name: Configure sssd
       template:
