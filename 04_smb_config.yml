@@ -20,13 +20,6 @@
     - name: Flush handlers
       meta: flush_handlers
 
-    - name: Set acl on share
-      ansible.builtin.file:
-        path: "{{ sharepath }}"
-        owner: administrator
-        group: "{{ accessgroup }}"
-        mode: '0770'
-
     - name: Enable Smb Service
       systemd:
         name: smb
@@ -44,6 +37,13 @@
         name: winbind
         state: started
         enabled: yes
+
+    - name: Set acl on share
+      ansible.builtin.file:
+        path: "{{ sharepath }}"
+        owner: administrator
+        group: "{{ accessgroup }}"
+        mode: '0770'
 
   handlers:
     - name: reload sssd
