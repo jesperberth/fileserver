@@ -24,6 +24,17 @@
         mode: '0600'
       notify: reload sssd
 
+    - name: Enable Smb Service
+      systemd:
+        name: smb
+        state: started
+        enabled: yes
+
+    - name: Enable Nmb Service
+      systemd:
+        name: nmb
+        state: started
+        enabled: yes
     - name: Enable Winbind Service
       systemd:
         name: winbind

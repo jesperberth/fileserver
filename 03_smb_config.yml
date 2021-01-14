@@ -31,7 +31,6 @@
         owner: root
         group: root
         mode: '0644'
-      notify: reload smb
 
     - name: Configure Krb5
       template:
@@ -41,25 +40,8 @@
         group: root
         mode: '0644'
 
-    - name: Enable Smb Service
-      systemd:
-        name: smb
-        state: started
-        enabled: yes
-
-    - name: Enable Nmb Service
-      systemd:
-        name: nmb
-        state: started
-        enabled: yes
-
   handlers:
     - name: reload firewall
       systemd:
         name: firewalld
-        state: reloaded
-
-    - name: reload smb
-      systemd:
-        name: smb
         state: reloaded
