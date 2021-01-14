@@ -6,7 +6,7 @@ services = nss, pam
 
 [domain/{{ activedirectorydomain }}]
 ad_domain = {{ activedirectorydomain }}
-krb5_realm = {{ activedirectorydomainCAP }}
+krb5_realm = {{ activedirectorydomain|upper }}
 realmd_tags = manages-system joined-with-adcli
 cache_credentials = True
 id_provider = ad
