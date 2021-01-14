@@ -8,13 +8,6 @@
     - ../vars.yml
 
   tasks:
-    - name: Set acl on share
-      ansible.builtin.file:
-        path: "{{ sharepath }}"
-        owner: administrator
-        group: "{{ accessgroup }}"
-        mode: '0770'
-
     - name: Configure sssd
       template:
         src: sssd.conf.j2
@@ -23,6 +16,16 @@
         group: root
         mode: '0600'
       notify: reload sssd
+
+    - name: Flush handlers
+      meta: flush_handlers
+
+    - name: Set acl on share
+      ansible.builtin.file:
+        path: "{{ sharepath }}"
+        owner: administrator
+        group: "{{ accessgroup }}"
+        mode: '0770'
 
     - name: Enable Smb Service
       systemd:
@@ -35,6 +38,7 @@
         name: nmb
         state: started
         enabled: yes
+
     - name: Enable Winbind Service
       systemd:
         name: winbind
