@@ -26,12 +26,12 @@
         name: nmb
         state: started
         enabled: yes
-    
+
     - name: Enable Winbind Service
       systemd:
         name: winbind
         state: started
-        enabled: yes      
+        enabled: yes
 
     - name: Enable SMB in firewall
       firewalld:
@@ -42,13 +42,13 @@
 
     - name: Set SELinux for /mnt/transport chcon
       command: chcon -R -t samba_share_t /mnt/transport
-    
+
     - name: Allow Samba to modify files in /mnt/transport
       community.general.sefcontext:
         target: '/mnt/transport(/.*)?'
         setype: samba_share_t
         state: present
-    
+
     - name: Configure Samba
       template:
         src: smb.conf.j2

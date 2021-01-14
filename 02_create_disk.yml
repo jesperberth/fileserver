@@ -1,43 +1,43 @@
 ---
 - hosts: localhost
-  name: Create Transport Disk
+  name: Create Storage for share
   vars:
     ansible_python_interpreter: "/usr/bin/python3"
 
   tasks:
-    - name: create partion /dev/sdb
+    - name: create partion on device
       parted:
-       device: /dev/sdb
+       device: "{{ device }}"
        number: 1
        flags: [ lvm ]
        state: present
 
-    - name: create volume group vg.data
+    - name: create volume group
       lvg:
-       vg: vg.data
-       pvs: /dev/sdb1
+       vg: "vg.{{ sharename }}"
+       pvs: "{{ device }}1"
 
-    - name: create logical transport disk on vg.data
+    - name: create logical transport disk on vg
       lvol:
-       vg: vg.data
-       lv: lv.transport
+       vg: "vg.{{ sharename }}"
+       lv: "lv.{{ sharename }}"
        size: 100%FREE
 
-    - name: create filesystem xfs on lv.transport
+    - name: create filesystem xfs on lv
       filesystem:
        fstype: xfs
-       dev: /dev/mapper/vg.data-lv.transport
-    
-    - name: create directory for lv.transport
+       dev: "/dev/mapper/vg.{{ sharename }}-lv.{{ sharename }}"
+
+    - name: create directory for lv
       file:
-       path: /mnt/transport
+       path: "{{ sharepath }}"
        state: directory
-    
+
     - name: add fstab entry
-      mount: 
-       name: /mnt/transport
-       src: /dev/mapper/vg.data-lv.transport
-       fstype: xfs 
+      mount:
+       name: "{{ sharepath }}"
+       src: "/dev/mapper/vg.{{ sharename }}-lv.{{ sharename }}"
+       fstype: xfs
        opts: defaults
        state: present
 
