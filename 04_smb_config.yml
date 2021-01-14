@@ -9,7 +9,7 @@
 
   tasks:
    - name: Set acl on share
-    ansible.builtin.file:
+     ansible.builtin.file:
        path: "{{ sharepath }}"
        owner: administrator
        group: "{{ accessgroup }}"
