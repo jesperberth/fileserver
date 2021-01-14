@@ -1,7 +1,20 @@
 # fileserver
 
-create a vars.yml file
+# Install
 
+dnf install python3-virtualenv git
+
+virtualenv ansible
+
+source ansible/bin/activate
+
+pip install ansible
+
+git clone https://github.com/jesperberth/fileserver.git
+
+create a vars.yml file ../vars.yml
+
+```yaml
 ---
 activedirectorydomain: "domain.local"
 activedirectorydomainshort: "domain"
@@ -12,8 +25,8 @@ device: "/dev/sdb"
 sharename: "share"
 sharepath: "/mnt/share"
 accessgroup: "sg-access-share-rw"
-
-## Manual stuff
+```
+## Run
 
 ansible-playbook 01_config_realm.yml
 
