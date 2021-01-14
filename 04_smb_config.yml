@@ -49,4 +49,4 @@
     - name: reload sssd
       systemd:
         name: sssd
-        state: reloaded
+        state: restarted
